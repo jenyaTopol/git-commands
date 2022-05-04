@@ -1,0 +1,130 @@
+    git config –global user.name “John Doe”
+    git config –global user.email johndoe@example.com
+    git config -l
+    git init
+    git status
+    git add .
+    git commit -m “my first commit”
+    git log
+    git log –oneline
+    git ls-tree –full-tree -r –name-only HEAD
+    git rm
+    git rm –cached -r …
+    git mv
+    git rm ==> instead of: rm + git add
+    git mv ==> instead of: mv + git add
+    git commit -am ==> add + commit
+    git rm –cached ==> remove from stage 
+    git diff
+    git diff –staged
+    git difftool
+    git difftool
+    git difftool –staged
+    git log –online –reversed
+    git diff <id1> <id2>
+    git difftool <id1> <id2>
+    git show <id>
+    git show HEAD~1
+
+    git show HEAD~1:file1.txt
+    git ls-tree HEAD~1
+    git stash save
+    git stash list
+    git stash pop
+        git restore file1.txt
+    git restore –staged file1.txt
+    git restore –source=HEAD~1 file1.txt
+    git clean -fd
+    git log –oneline -3
+    git log –oneline –stat
+    git log –oneline –author=”john”
+    git log –oneline –after=”2020-12-01″
+    git log –oneline –before=”one week ago”
+    git log –oneline grep=”WORD in COMMENT”
+    git log –oneline -S”WORD in CODE”
+    git log <commit-id>..<commit-id>
+    git log HEAD~3..
+    git show <commit-id> –names-only
+    git show <commit-id> –names-only –name-status
+    git checkout <commit-id>
+    git checkout master ==.> restore to current state (last-commit)
+    git bisect
+    git shortlog
+    git blame
+    git log –patch — <file-name> ==> shows the history of the file
+    git blame <file-name>
+    git tag
+    git tag with annotation
+    git checkout <tag-name>
+    git commands:
+
+    git log –pretty=format:”%Cgreen[%an]%Creset committed (%CredID:%h%Creset) on <%cd> %ae %s”
+    git config –global alias.glp “git log –pretty=format:hello”
+    git bisect start
+    git bisect bad
+    git bisect good <commit-id>
+    git shortlog -n -e -s –after=”yesterday”
+    git log –oneline –stat –patch — <file-name>
+    git blame -e -L 1,3 <file-name>
+    git tag v1.5
+    git tag v0.5 <commit-id>
+    git tag -a v0.1 -m “good start” <commit-id> ==> annotated
+    git tag ==> shows all tags
+    git show v0.1 ==> show the commit with tag v0.1
+    git tag -n ==> shows annotation (instead of comment)
+    git tag -d v0.1 ==> deletes the tag
+    git branch <branch-name>
+    git switch <branch-name>
+    git branch -m <current-branch-name> <new-branch-name>
+    git branch -d <branch-name> ====> deletes branch with no commits
+    git branch -D <branch-name> ====> deletes branch WITH ALL commits
+    git log master..<branch-name>
+    git diff master..<branch-name>
+    git stash save
+    git stash pop
+    git stash list
+    git stash show
+    git stash show <stash-number>
+    git stash apply <stash-number>
+    git stash drop <stash-number>
+    git stash clear
+    git merge <branch-name> ====> when conflict occurs::
+        code ====> will open vs-code and will let you choose how to resolve the conflict
+        git merge --continue ====> after resolving conflict continue with merge
+        git merge --abort ====> will abandum the merge
+    git config --global merge.tool p4merge ====> will set the default mergetool as p4merge (if you want)
+        git mergetool ====> will now open the p4merge
+        git config --gloabl -e ====> see/update default mergetool
+    git reset --hard HEAD~1 ====> will remove the last commit
+        if it was a merge commit, then it will restore the branch to its state before the merge
+        git reset --hard HEAD [clears stage + restore all files to HEAD state!]
+    git reset 1.txt [will remove 1.txt M from STAGE area ! (back into work area) … mixed (default) reset of HEAD]
+    git reset --soft HEAD~1 [will REMOVE one-before last commit from history + and place it into STAGE area]
+    git reset --soft HEAD~2 [will REMOVE two before last commit from history + and place BOTH into STAGE area]
+    git reset --mixed HEAD~1 [will REMOVE one before last commit from history + and place it into WORKING-FOLDER]
+    git reset --hard HEAD~1 [will REMOVE one before last commit from history (not touch STAGE not touch WORKING-FOLDER...gone)]
+
+git restore
+
+    git restore --source=HEAD 1.txt [set content of 1.txt file to be the same as HEAD, could also be used on a specific commit]
+    git restore . [clears ALL changed files (does not remove untracked files!) + clears STAGE AREA]
+
+git clean
+
+    git clean -fd [clears all untracked files (will remove new_file_today.txt)]
+
+git revert
+
+    git revert HEAD [will create a commit which UNDO the HEAD commit]
+    git revert 80e8872 [will create a commit which UNDO the 80e8872 commit]
+    git revert 6ece78a..80e8872 [will create a commit which UNDO the range of 6ece78a..80e8872 commits]
+    git revert --abort [in case of conflicts you need to merge the revert, or abort]
+    git revert HEAD [in case where HEAD is "merge-commit" commit will FAIL , so …]
+    git revert -m 1 HEAD [will create a commit which UNDO the HEAD "merge-commit" commit and choose master as parent (1=master, 2=branch)]
+
+git merge --squash
+
+    git merge --squash lot_of_changes [will create a "squash-commit" which puts together ALL of the commits inside lot_of_changes branch into the STAGE area]
+    git commit -m "squash-em" [need to commit the "squash-commit"]
+    git merge lot_of_changes [you can merge the branch after the "squash-commit" but this will REMOVE the "squash-commit" and create a 3-ways-merge (like we did NOT squash AT ALL) ... so best practice to "squash-commit" and then REMOVE the branch!
+    
