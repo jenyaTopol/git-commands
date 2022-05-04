@@ -128,3 +128,80 @@ git merge --squash
     git commit -m "squash-em" [need to commit the "squash-commit"]
     git merge lot_of_changes [you can merge the branch after the "squash-commit" but this will REMOVE the "squash-commit" and create a 3-ways-merge (like we did NOT squash AT ALL) ... so best practice to "squash-commit" and then REMOVE the branch!
     
+    git rebase master [rebase branch-creation source commit]
+    git cherry-pick <commit-id-of-branch> [creates a commit inside master from a specific commit inside branch]
+    git clone <HTTP-link> [creates a local repo + working folder from master]
+    git pull [get latest cloud version –> into LOCAL]
+    git push [sends local repo into CLOUD]
+    git config -- global mergetool.keepBackup false […are you sure?]
+        git restore --source=<branch-name> -- <file-name> [bring a file from a specific branch]
+        git restore --source=bugfix -- file1.txt
+    git switch main [when working vs cloud master is now main]
+    git fetch [fetch origin branches from remote]
+    git branch -vv [display info on branches compare to main]
+    git tag push origin
+        git tag v1.0
+        git push origin v1.0 [push to origin]
+        git push origin -d v1.0
+        git tag -d v1.0
+    git remote prune origin [removes all local branches which were DELETED on origin]
+        create a local branch
+        make changes, commit and push
+        go to git repo using browser
+        delete the branch (…merge + delete better)
+        go back to GitBash
+        git remote prune origin
+    How to create a branch locally and push?
+        git switch -C mybranch
+        [make change]
+        add + commit
+        git push –set-upstream origin mybranch
+    How to switch to branch which exists only on origin?
+        git fetch
+        git checkout branchName [this will work only if branch exists on origin]
+            How to fix your last commit comment?
+        git reset --soft HEAD~1
+        git commit -m “better comment”
+    How to add file to your last commit?
+        git reset --soft HEAD~1
+        git add .
+        git commit -m “comment”
+    How to fix your last commit comment using amend?
+        git commit –amend -m “good comment …”
+    How to recover lost commits or undo EVERYTHING in general? reflog
+        git reflog [shows history of all SNAPSHOTS history]
+        see screenshot below
+        git reset –hard HEAD@{1} [will restore current to specific reflog SNAPSHOT] 
+    How to change early commits? git rebase -i <commit-id>
+        see screenshot below
+        git reflog [choose the point in history you want to jump to i.e.
+            088455d HEAD@{14}: commit: .
+        git rebase -i 088455d
+        now you can do any change you want. i.e. amend, commit ,etc….
+        this will create a new branch – since all sequential commits will change
+        see screenshot below
+        then ..
+        git rebase continue 
+    git rebase -i <id>^ [go to parent of the commit-id]
+    Create issues on public repo
+    How to Fork?
+        go to the public repo
+        click “Fork”
+        this will clone the repo into YOUR repo
+        now git clone into local folder…
+        create a branch for the change (i.e. bugfix)
+        git push -u origin bugfix
+        now go to YOUR repo and create a pull-request
+        this will create a pull-request for the ORIGINAL repo
+        now … the original repo creator (or collaborator) should confirm…
+        like in regular pull-request
+        once the pull-request is approved- the code will be merged into the ORIGINAL repo
+    How to pull latest AFTER Fork?
+        git remote -v
+        git remote add upstream https://github.com/itayhau/demo3.git
+        git remote -v [see new branches?]
+        git fetch upstream [will bring new branches]
+        git pull upstream master [will bring latest of branch master from ORIGINAL]
+        see screenshot below
+        
+    
